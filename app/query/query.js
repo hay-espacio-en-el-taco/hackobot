@@ -6,11 +6,32 @@ function QueryProduct(userId,product)
 }
 
 function AmazonSearch(product)
-{
-    var productName = "EVGA GeForce GTX 1080 Ti Founders Edition GeForce GTX 1080 TI 11GB GDDR5X - Tarjeta gráfica (NVIDIA, GeForce GTX 1080 TI, 7680 x 4320 Pixeles, 1480 MHz, 1582 MHz, 11 GB)";
-    var price = 15216.96;
+{   var productName;
+    var price;
+    var url;
     var store = "Amazon";
-    var url = "https://www.amazon.com.mx/EVGA-GeForce-1080-Founders-GDDR5X/dp/B06XH2P8DD/ref=sr_1_1?ie=UTF8&qid=1495934665&sr=8-1&keywords=evga+1080+ti";
+    if(product.toLowerCase().includes('gtx 1080 ti'))
+    {
+        productName = "EVGA GeForce GTX 1080 Ti Founders Edition GeForce GTX 1080 TI 11GB GDDR5X - Tarjeta gráfica (NVIDIA, GeForce GTX 1080 TI, 7680 x 4320 Pixeles, 1480 MHz, 1582 MHz, 11 GB)";
+        price = 15216.96;
+        url = "https://www.amazon.com.mx/EVGA-GeForce-1080-Founders-GDDR5X/dp/B06XH2P8DD/ref=sr_1_1?ie=UTF8&qid=1495934665&sr=8-1&keywords=evga+1080+ti";
+    }
+    else if(product.toLowerCase().includes('nintendo switch'))
+    {
+        productName = "Nintendo Switch - Consola, color gris - Edición Estandar - Nacional - Standard Edition";
+        price = 8469.00;
+        url = "https://www.amazon.com.mx/Nintendo-Switch-Estandar-Nacional-Standard/dp/B01LTI2086/ref=sr_1_1?s=videogames&ie=UTF8&qid=1496003065&sr=1-1&keywords=nintendo+switch";
+    }
+    else if(product.toLowerCase().includes('cloud stinger gaming headset'))
+    {
+        productName = "HyperX Cloud Stinger Gaming Headset para PC & PS4 (HX-HSCS-BK/LA)";
+        price = 770.61;
+        url = "https://www.amazon.com.mx/HyperX-Stinger-Gaming-Headset-HX-HSCS-BK/dp/B01M1EEUGL/ref=sr_1_fkmr0_3?s=videogames&ie=UTF8&qid=1496003177&sr=1-3-fkmr0&keywords=audiofonos+hyper+x";
+    }
+    else
+    {
+        return {status:"Error",error:"producto no encontrado"}
+    }     
     return {status:"ok",product:{ProductName:productName,Price:price,Store:store,Url:url}}
 }
 
