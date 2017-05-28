@@ -30,10 +30,8 @@ function AmazonSearch(product)
     }
     else
     {
-        store = "Amazon";
         return {status:"Error",error:"producto no encontrado"}
     }     
-    store = "Amazon";
     return {status:"ok",product:{ProductName:productName,Price:price,Store:store,Url:url}}
 }
 
