@@ -31,16 +31,16 @@ const
     return /precio/gi.test(msg)||/presio/gi.test(msg)||/cuesta/gi.test(msg)||/sale/gi.test(msg);
   },
   queryGenerator = (msg) => {
-    if(length(msg.split(' precio de '))>1){
+    if(msg.split(' precio de ').length>1){
       return msg.split(' precio de ')[1];
     }
-    else if(length(msg.split(' presio de '))>1){
+    else if(msg.split(' presio de ').length>1){
       return msg.split(' presio de ')[1];
     }
-    else if(length(msg.split(' cuesta '))>1){
+    else if(msg.split(' cuesta ').length>1){
       return msg.split(' cuesta ')[1];
     }
-    else if(length(msg.split(' sale '))>1){
+    else if(msg.split(' sale ').length>1){
       return msg.split(' sale ')[1];
     }
     else{
