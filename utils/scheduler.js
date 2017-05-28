@@ -8,3 +8,4 @@ exports.newJob=(id, currPrice, query) => {
     Job.Checar_Precio(id, currPrice, query), 
     null, true, 'America/Los_Angeles');
 };
+
