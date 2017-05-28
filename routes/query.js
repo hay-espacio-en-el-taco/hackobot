@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('./DB');
 const query = require('../app/query/query');
+const scheduler = require('../utils/scheduler');
 
 
 
@@ -27,6 +28,7 @@ router.get('/', function(req, res, next) {
         });
         db.usuario_registrado(req.query.id).then(res => 
             {db.consulta_almacenar(res.idusuario,values[0].product.Store,values[0].product.ProductName,values[0].product.Price,values[0].product.Price,product)
+            .then(res => {scheduler.newJob(product, values[0].product.Price, product)})
             .catch(err => {console.log(err);})}
         )    
         .catch(err => {console.log(err);});    
