@@ -1,7 +1,7 @@
+var request = require('request');
 const query = require('../app/query/query');
 
 exports.Checar_Precio = function(idUsuario,precioActual,consulta) {
-return new Promise((resolve,reject) => {
 	query.QueryProduct(idUsuario,consulta)
 	.then(values => {         
             values = values.filter(item => {
@@ -19,19 +19,23 @@ return new Promise((resolve,reject) => {
             });
 
 		if (values[0]!== null && values[0].product.Price < precioActual) {
-			resolve({status:"Barato"});
+			request.post("https://tacobotapi.herokuapp.com/messageTrigger",{
+				form: {msg: "Tu producto " + consulta + " ahora esta mas barato, de: $ " + precioActual + "a: $ " + values[0].product.Price + " Ahora para agradecerme alimentame" ,id: idUsuario
+			}},function(error,response,body){
+				if(error){
+				console.log(error);
+				}
+			});
 		}
 		else{
-			reject({status : "Caro"});
+			console.log("caro");
 		}
 
         }).catch(err => { 
-            console.log(err);
-            reject({status: "error", error : "Algo Paso ven mas tarde"});  
+            console.log(err);  
         }); 
 
 	
 		
-	});
 	}
 	
