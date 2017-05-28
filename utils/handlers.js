@@ -6,12 +6,12 @@ const
   sender = require('./sender'),
   validateNewUser = (userSenderId) => db.usuario_registrado(userSenderId),
   createUser = (name, userId) => db.usuario_registrar(name, userId),
-  searchQuery = (query) => {
+  searchQuery = (query, userId) => {
     return new Promise((resolve, reject) => {
       console.log(process.env.API_URL);
       var options = { method: 'GET',
         url: process.env.API_URL,
-        qs: { product: query }
+        qs: { id:userId, product: query }
       };
 
       request(options, (error, response, body) => {
@@ -50,7 +50,7 @@ const
   msgGenerator = (isPrice, msg) => {
     return new Promise((resolve, reject) => {
       if (isPrice){
-        searchQuery(queryGenerator(msg))
+        searchQuery(queryGenerator(msg), msg.sender.id)
         .then((res) => {
           let finalMessage = res.map((i) => {
             return `- ${i.product.ProductName}. $ ${i.product.Price} at ${i.product.Store}.`;
