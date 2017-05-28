@@ -47,10 +47,10 @@ const
       return "error";
     }
   },
-  msgGenerator = (isPrice, msg) => {
+  msgGenerator = (isPrice, msg, id) => {
     return new Promise((resolve, reject) => {
       if (isPrice){
-        searchQuery(queryGenerator(msg), msg.sender.id)
+        searchQuery(queryGenerator(msg), id)
         .then((res) => {
           let finalMessage = res.map((i) => {
             return `- ${i.product.ProductName}. $ ${i.product.Price} at ${i.product.Store}.`;
@@ -87,7 +87,7 @@ module.exports = {
         if (msg.message) {
           validateNewUser(msg.sender.id)
           .then(l_user => {
-            msgGenerator(isPriceRequest(msg.message.text), msg.message.text)
+            msgGenerator(isPriceRequest(msg.message.text), msg.message.text, msg.sender.id)
             .then((newMsg) => {
               sender.sendMessage(newMsg , msg.sender.id)
               .then((com) => {
