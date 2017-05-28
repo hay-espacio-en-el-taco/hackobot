@@ -22,7 +22,7 @@ function MercadoLibreSearch(product)
             body = JSON.parse(body);
             if(body.results.length > 0)
                 resolve({status:"ok",product:{ProductName:body.results[0].title,Price:body.results[0].price,Store:"Mercado libre",Url:body.results[0].permalink}});
-            else reject({status:"Error",error:"producto no encontrado"});
+            else resolve({status:"Error",error:"producto no encontrado"});
         });
     });
 }
@@ -36,7 +36,7 @@ function WalMartSearch(product)
             body = JSON.parse(body);
             if(body.items && body.items.length > 0)
                 resolve( {status:"ok",product:{ProductName:body.items[0].name,Price:body.items[0].salePrice * 18.51,Store:"Walt Mart"}});
-            else reject({status:"Error",error:"producto no encontrado"});
+            else resolve({status:"Error",error:"producto no encontrado"});
         });
     });
 }
