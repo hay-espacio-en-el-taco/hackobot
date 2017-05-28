@@ -1,7 +1,7 @@
 'use strict';
 
 const 
-  db = require('./DB'),
+  db = require('../routes/DB'),
   request = require("request"),
   sender = require('./sender'),
   validateNewUser = (userSenderId) => db.usuario_registrado(userSenderId),
@@ -29,7 +29,7 @@ const
   },
   isPriceRequest = (msg) => {
     return /precio/gi.test(msg)||/presio/gi.test(msg)||/cuesta/gi.test(msg)||/sale/gi.test(msg);
-  }
+  },
   queryGenerator = (msg) => {
     if(length(msg.split(' precio de '))>1){
       return msg.split(' precio de ')[1];
