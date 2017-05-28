@@ -21,11 +21,11 @@ const
 
       request(options, (error, response, body) => {
         if (error) {
-          console.log(error);
+          console.log('ERROR: ' + error);
           return reject(error);
         }
-        console.log(body);
-        resolve(body);
+        console.log('RESULT: ' + body);
+        resolve(JSON.parse(body));
       });
     });
   },
@@ -34,13 +34,13 @@ const
       if (isPrice){
         searchQuery(msg.split('precio de ')[1])
         .then((res) => {
-          let finalMessage = 'Encontramos estos productos: \n';
-          for(var i in res) {
-            finalMessage = finalMessage.concat(`- ${res[i].product.ProductName}. $ ${res[i].product.Price} at ${res[i].product.Store}.\n`);
-          }
-          resolve(finalMessage);
+          let finalMessage = res.map((i) => {
+            return `- ${i.product.ProductName}. $ ${i.product.Price} at ${i.product.Store}.`;
+          });
+          resolve(finalMessage.join('\n'));
         })
         .catch((err) => {
+          console.log('ERROR chido: ' + err);
           return resolve(`Mil disculpas, pero no encontramos ese producto.`);
         });
       } else {
